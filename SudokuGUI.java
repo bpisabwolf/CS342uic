@@ -9,7 +9,7 @@ public class SudokuGUI extends JFrame implements ActionListener {
 	private MyJButton gridButtons[];
 	private JPanel mainGrid[];
 	private JPanel gridPanel;
-
+	private JPanel bar;
 	
 	private boolean toggle = true;
 	private String placeHolders[] = {"1", "2", "3", "4", "5", "6","7","8","9"};
@@ -17,18 +17,20 @@ public class SudokuGUI extends JFrame implements ActionListener {
 	
 	
 	public SudokuGUI(){
-		
+		bar = new SideBar();
 		grid = new GridLayout(3, 3, 5, 5);
 		miniGrid = new GridLayout(3, 3, 0, 0);
 		//ourMenu = new MenuBar();
 		largeContainer = getContentPane();
-		//largeContainer.setLayout(grid);
+		largeContainer.setLayout(new BorderLayout());
+		largeContainer.add(BorderLayout.EAST, bar);
+
 		//largeContainer.add(new MenuBar());
 		
 		gridPanel = new JPanel(grid);
 		gridPanel.setLayout(new BorderLayout());
 		
-		largeContainer.add(gridPanel);
+		largeContainer.add(gridPanel, BorderLayout.CENTER);
 		gridButtons = new MyJButton[9];
 		mainGrid = new MyJPanel[9];
 		
@@ -49,9 +51,9 @@ public class SudokuGUI extends JFrame implements ActionListener {
 			}
 			
 		}
-		/*setSize(500,500);
+		setSize(500,500);
 		setVisible( true );
-		*/
+		
 		
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic( 'F' );
@@ -253,7 +255,7 @@ public class SudokuGUI extends JFrame implements ActionListener {
 
 	 
 
-	      setSize( 500, 200 );
+	      setSize( 600, 600 );
 	      setVisible( true );
 		
 		
