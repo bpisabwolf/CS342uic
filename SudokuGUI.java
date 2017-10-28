@@ -20,15 +20,12 @@ public class SudokuGUI extends JFrame implements ActionListener {
 		bar = new SideBar();
 		grid = new GridLayout(3, 3, 5, 5);
 		miniGrid = new GridLayout(3, 3, 0, 0);
-		//ourMenu = new MenuBar();
 		largeContainer = getContentPane();
 		largeContainer.setLayout(new BorderLayout());
 		largeContainer.add(BorderLayout.EAST, bar);
 
-		//largeContainer.add(new MenuBar());
 		
 		gridPanel = new JPanel(grid);
-		gridPanel.setLayout(new BorderLayout());
 		
 		largeContainer.add(gridPanel, BorderLayout.CENTER);
 		gridButtons = new MyJButton[9];
