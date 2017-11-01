@@ -341,7 +341,7 @@ public class SudokuGUI extends JFrame implements ActionListener {
 			  {
 			     if ( temp.equals(buttons[count] ) ) {
 			    	 insertNumber = count;         
-			    	 //buttons[insertNumber].setEnabled(false); 
+			    	 buttons[insertNumber].setEnabled(false); 
 			     }
 			  }
 				
