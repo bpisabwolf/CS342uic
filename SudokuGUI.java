@@ -189,7 +189,7 @@ public class SudokuGUI extends JFrame implements ActionListener {
 	    			public void actionPerformed( ActionEvent event )
 	    			{
 	    				JOptionPane.showMessageDialog( SudokuGUI.this,
-	    		        "Sudoku consists of a 3 x 3 regioned board, each region, column, and row containing 9 cells each. Numbers are to be placed in each cell. However, each row, column, and 9 cell region must contain only 1 copy of numbers 1-9.",
+	    		        "Sudoku consists of a 3 x 3 regioned board,\neach region, column, and row containing 9 cells each.\nNumbers are to be placed in each cell.\nHowever, each row, column, and 9 cell region must\ncontain only 1 copy of numbers 1-9.",
 	    		        "How to play Sudoku", JOptionPane.PLAIN_MESSAGE );
 	    			}
 	    		}
@@ -206,7 +206,7 @@ public class SudokuGUI extends JFrame implements ActionListener {
 	    			public void actionPerformed( ActionEvent event )
 	    			{
 	    				JOptionPane.showMessageDialog( SudokuGUI.this,
-	    	    		"Load or save a board to text file using the File menu. To place numbers on the grid, click a number on the right sidebar, then click where you would like to place it.Press the 'C' button to erase a cell's number. To access hints, use the Hints menu at the top.",
+	    	    		"Load or save a board to text file using the File menu.\nTo place numbers on the grid, click a number on the\nright sidebar, then click where you would like to place it.\nPress the 'C' button to erase a cell's number.\nTo access hints, use the Hints menu.",
 	    	    		"How to use", JOptionPane.PLAIN_MESSAGE );
 	    			}
 	    		}
