@@ -10,6 +10,9 @@
 */
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import javax.swing.*;
 
 
