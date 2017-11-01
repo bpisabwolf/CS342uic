@@ -130,6 +130,29 @@ public class SudokuGUI extends JFrame implements ActionListener {
 	    			public void actionPerformed( ActionEvent event )
 		            {
 		               //load file action to be placed here
+				JFileChooser file0 = new JFileChooser();
+	    			int returnVal = file0.showOpenDialog(null);
+	    				
+	    			if (returnVal == JFileChooser.APPROVE_OPTION) {
+	    				File file1 = file0.getSelectedFile();
+	    				//resets the board before loaded file is added
+	    				for(int i = 0; i < 9; i++) {
+	    					for(int j = 0; j < 9; j++) {
+	    						gridButtons[i][j].setText("");
+	    					}
+	    				}
+	    				try {
+	    					FileInputStream fis = new FileInputStream(file1);
+	    				    char c;
+	    				    while (fis.available() > 0) {
+	    				    	c = (char) fis.read();
+	    				    	gridButtons[0][0].setNumber(c);
+	    				    }
+	    				} catch (IOException e) {
+	    					e.printStackTrace();
+	    				}
+	    			
+	    			}//end of if statement
 		            }
 	    		}
 	    );
