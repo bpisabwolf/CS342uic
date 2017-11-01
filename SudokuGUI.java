@@ -1,34 +1,55 @@
+/* ------------------------------------------------
+* Author: Robert L Barrera
+* 		Boris Pisabaj
+* 		David Qiao
+* Class: CS 342, Fall 2017
+* Program: #3-Sudoku Solver
+* System: Windows 10, Eclipse
+* October 29, 2017
+* -------------------------------------------------
+*/
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 
 public class SudokuGUI extends JFrame implements ActionListener {
 	private Container largeContainer, smallContainer, gridContainer;
 	private GridLayout grid, miniGrid;
 	
-	private MyJButton gridButtons[];
+	private MyJButton gridButtons[][];
 	private JPanel mainGrid[];
 	private JPanel gridPanel;
 	private JPanel bar;
+	private JPanel help;
 	
 	private boolean toggle = true;
-	private String placeHolders[] = {"1", "2", "3", "4", "5", "6","7","8","9"};
+	//private String placeHolders[] = {"1", "2", "3", "4", "5", "6","7","8","9"};
+	
+	
+	private JButton buttons[];
+	private final String buttonLabels[] = 
+	      { "1", "2", "3", "4", "5", "6", "7", "8", "9", "C"};
+	String insertString = " ";	// SideBar Variables
+	int insertNumber = 0;	// SideBar Variables
+	private JButton candidateButton;
 	
 	
 	
 	public SudokuGUI(){
-		bar = new SideBar();
+		//bar = new SideBar();
 		grid = new GridLayout(3, 3, 5, 5);
 		miniGrid = new GridLayout(3, 3, 0, 0);
 		largeContainer = getContentPane();
 		largeContainer.setLayout(new BorderLayout());
-		largeContainer.add(BorderLayout.EAST, bar);
+		bar = new JPanel(new GridLayout(10, 1));
+		help = new JPanel(new GridLayout(1,1));
 
 		
 		gridPanel = new JPanel(grid);
 		
 		largeContainer.add(gridPanel, BorderLayout.CENTER);
-		gridButtons = new MyJButton[9];
+		gridButtons = new MyJButton[9][9];
 		mainGrid = new MyJPanel[9];
 		
 		for(int i = 0; i < 9; i++)
@@ -40,14 +61,43 @@ public class SudokuGUI extends JFrame implements ActionListener {
 			smallContainer.setLayout(miniGrid);
 	
 			gridPanel.add(mainGrid[i]);
-			for(int j = 0; j < gridButtons.length; j++){
-				gridButtons[j] = new MyJButton(placeHolders[j]);
-				gridButtons[j].setNumber(j);
-				gridButtons[j].addActionListener(this);
-				smallContainer.add(gridButtons[j]);				
+			for(int j = 0; j < 9; j++){
+				gridButtons[i][j] = new MyJButton(/*placeHolders[j]*/ "");
+				//gridButtons[i][j].setNumber(i);
+				gridButtons[i][j].addActionListener(new GridButtonListener());
+				smallContainer.add(gridButtons[i][j]);
 			}
 			
 		}
+		
+		// Side and Help panel
+		
+		
+		// create and add buttons
+		buttons = new JButton[ buttonLabels.length ];
+		
+		for ( int count = 0; count < 10; count++ ) {
+			buttons[count] = new JButton(buttonLabels[count]);
+			bar.add( buttons[ count ] );
+			buttons[count].addActionListener( this );
+			buttons[count].setFont(new Font("Arial", Font.PLAIN, 25));
+		}
+		
+		candidateButton = new JButton("Show Candidate List");
+		help.add( candidateButton );
+		candidateButton.addActionListener( 
+	    		new ActionListener() {
+	    			public void actionPerformed( ActionEvent event )
+	    			{
+				      candidateButton.setEnabled(false);  
+	    			}
+	    		}
+	     );
+		candidateButton.setFont(new Font("Arial", Font.PLAIN, 25));
+
+		largeContainer.add(BorderLayout.EAST, bar);
+		largeContainer.add(BorderLayout.SOUTH, help);
+		
 		setSize(500,500);
 		setVisible( true );
 		
@@ -245,10 +295,6 @@ public class SudokuGUI extends JFrame implements ActionListener {
 	    bar.add( fileMenu );
 	    bar.add( helpMenu );
 	    bar.add( hintMenu );
-	    
-//	    JLabel displayLabel = new JLabel( "Sample Text", SwingConstants.CENTER );
-//	      displayLabel.setForeground( Color.BLACK );
-//	      displayLabel.setFont( new Font( "Serif", Font.PLAIN, 72 ) );
 
 	 
 
@@ -259,17 +305,47 @@ public class SudokuGUI extends JFrame implements ActionListener {
 		
 	}
 
-	
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		if(toggle){
-			
-		}
-		toggle = !toggle;
-		smallContainer.validate();
-		
-	//	MyJButton temp = ()
-	}
+	// handle button events 
+		 public void actionPerformed( ActionEvent event )
+		 { 
+		      buttons[insertNumber].setEnabled(true); 
+		      
+		      JButton temp = (JButton) event.getSource();
+			  for ( int count = 0; count < buttons.length; count++ ) 
+			  {
+			     if ( temp.equals(buttons[count] ) ) {
+			    	 insertNumber = count;         
+			    	 //buttons[insertNumber].setEnabled(false); 
+			     }
+			  }
+				
+			  
+			     
+		      if (insertNumber < 9) {
+		 	     insertString = Integer.toString(insertNumber+1);
+		      }
+		      else if (insertNumber == 9) {
+		    	  insertString = "";
+		      }		           
+		 }	  
+		 
+		 // Grid Button Listener
+		 class GridButtonListener implements ActionListener {
+		        public void actionPerformed(ActionEvent event) {
+		        	MyJButton temp = (MyJButton) event.getSource();
+					  for ( int i = 0; i < 9; i++ ) {
+						  for ( int j = 0; j < 9; j++ ) {
+						     if (temp.equals(gridButtons[i][j])) {
+						    	 gridButtons[i][j].setText(insertString);
+						    	 //gridButtons[i][j].setEnabled(false);
+						    	 
+						     }
+						  }
+					  }
+					  candidateButton.setEnabled(true); 
+		        }
+		        
+		 }
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -343,4 +419,3 @@ class MyJButton extends JButton
 	  return this.y;
   }
 }
-
