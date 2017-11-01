@@ -2,4 +2,4 @@
 CS 342 Project 3
 
 Files for CS 342, created for collaboration purposes for Project 3
-uh
+Use the SudokuGUI.java file only
